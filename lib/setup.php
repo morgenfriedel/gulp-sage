@@ -8,13 +8,6 @@ use Roots\Sage\Assets;
  * Theme setup
  */
 function setup() {
-  // Enable features from Soil when plugin is activated
-  // https://roots.io/plugins/soil/
-  add_theme_support('soil-clean-up');
-  add_theme_support('soil-nav-walker');
-  add_theme_support('soil-nice-search');
-  add_theme_support('soil-jquery-cdn');
-  add_theme_support('soil-relative-urls');
 
   // Make theme available for translation
   // Community translations can be found at https://github.com/roots/sage-translations
@@ -27,7 +20,7 @@ function setup() {
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus([
-    'primary_navigation' => __('Primary Navigation', 'sage')
+    'main_navigation' => __('Main Navigation', 'sage')
   ]);
 
   // Enable post thumbnails
@@ -47,8 +40,24 @@ function setup() {
   // Use main stylesheet for visual editor
   // To add custom styles edit /assets/styles/layouts/_tinymce.scss
   add_editor_style(Assets\asset_path('styles/main.css'));
+
+
 }
 add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
+
+/**
+ * Enable theme logo
+ */
+function theme_logo() {
+  add_theme_support( 'custom-logo', [
+    'height'      => 100,
+    'width'       => 400,
+    'flex-height' => true,
+    'flex-width'  => true,
+    'header-text' => array( 'site-title', 'site-description' )
+  ]);
+}
+add_action( 'after_setup_theme', __NAMESPACE__ . '\\theme_logo' );
 
 /**
  * Register sidebars
